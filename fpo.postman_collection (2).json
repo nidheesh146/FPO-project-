@@ -10,12 +10,12 @@
       "name": "New Request",
       "request": {
         "auth": {
-          "type": "bearer",
+          "type": "noauth",
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMjM1MTk0LCJpYXQiOjE3NzEyMzQ4OTQsImp0aSI6IjhjMDQ5MTI3MTE2MjRmNjBiNDUyZGJlNmFlYmYxZWRkIiwidXNlcl9pZCI6IjIifQ.46NkqT_CZK87LA_2knfKq7KyZSKHkrgskZdG67TvEEE",
-              "type": "string"
+              "value": "",
+              "type": "noauth"
             }
           ]
         },
