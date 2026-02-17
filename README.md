@@ -49,20 +49,42 @@ POST /api/token/
 
 Endpoints:
 
-Create Service Request
+POST /api/token/
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+
+
+POST /api/token/refresh/
+{
+  "refresh": "your_refresh_token"
+}
+
+
 POST /api/service-requests/
-
-Assign Provider
-PATCH /api/service-requests/{id}/
-
-Assign Assistant
-PATCH /api/service-requests/{id}/
-
-Update Status
-PATCH /api/service-requests/{id}/
-
-Get Request
-GET /api/service-requests/{id}/
+{
+  "service_type": "Harvest"
+}
 
 
-POSTMAN Collection is in project root
+PATCH /api/service-requests/{id}/assign_provider/
+{
+  "provider": 3
+}
+
+
+PATCH /api/service-requests/{id}/assign_assistant/
+{
+  "assistant": 4
+}
+
+
+
+Start Work
+PATCH /api/service-requests/{id}/start/
+
+
+
+Complete work
+PATCH /api/service-requests/{id}/complete/
