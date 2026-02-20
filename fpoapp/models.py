@@ -4,21 +4,29 @@ from django.conf import settings
 
 
 class FPO(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=100)
 
 
 class Farmer(models.Model):
     name = models.CharField(max_length=100)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     fpo = models.ForeignKey(FPO, on_delete=models.CASCADE)
 
 
 class ServiceProvider(models.Model):
     name = models.CharField(max_length=100)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     fpo = models.ForeignKey(FPO, on_delete=models.CASCADE)
 
 
 class Assistant(models.Model):
     name = models.CharField(max_length=100)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE,null=True)
 
 
@@ -27,6 +35,7 @@ class ServiceRequest(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('ASSIGNED', 'Assigned'),
+        ('ACCEPTED', 'Accepted'),
         ('IN_PROGRESS', 'In Progress'),
         ('COMPLETED', 'Completed'),
     ]

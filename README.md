@@ -49,45 +49,170 @@ POST /api/token/
 
 Endpoints:
 
-POST /api/token/
+Register fpo
+POST /auth/register-fpo/
+
+{
+  "username": "your_username",
+  "password": "your_password",
+  "name":"name"
+}
+
+register farmer
+POST /auth/register/
 {
   "username": "your_username",
   "password": "your_password"
 }
 
 
-POST /api/token/refresh/
+Login for all roles:
+POST /auth/login/
+
 {
-  "refresh": "your_refresh_token"
+  "username": "your_username",
+  "password": "your_password"
 }
-
-
-POST /api/service-requests/
+response:
 {
-  "service_type": "Harvest"
-}
-
-
-PATCH /api/service-requests/{id}/assign_provider/
-{
-  "provider": 3
-}
-
-
-PATCH /api/service-requests/{id}/assign_assistant/
-{
-  "assistant": 4
+  "access": "jwt_token",
+  "refresh": "refresh_token"
 }
 
 
 
-Start Work
-PATCH /api/service-requests/{id}/start/
-
-provider token
 
 
-Complete work
-PATCH /api/service-requests/{id}/complete/
 
-provider token
+FPO Creates Provider
+POST /auth/create-provider/
+
+Header:
+
+Authorization: Bearer : "fpo_token"
+{
+  "username": "provider1",
+  "password": "test123",
+  "name": "Provider One"
+}
+
+
+
+Provider Creates Assistant
+
+POST /auth/create-assistant/
+
+Header:
+
+Authorization: Bearer "provider_token"
+{
+  "username": "assistant1",
+  "password": "test123",
+  "name": "Assistant One"
+}
+
+
+Farmer Creates Service Request
+
+POST /requests/
+
+Authorization: Bearer "farmer_token"
+
+{
+  "service_type": "Harvesting"
+}
+status becomes pending
+
+FPO Assigns Provider
+
+PATCH /requests/<request_id>/assign-provider/
+
+
+Header:
+
+Authorization: Bearer <fpo_token>
+
+body:
+{
+  "provider_id": 3
+}
+
+Status becomes ASSIGNED
+
+
+
+Provider Accepts / Rejects:
+
+PATCH /requests/<request_id>/respond/
+
+
+Header:
+
+Authorization: Bearer <provider_token>
+
+Body:
+
+{
+  "action": "accept"
+}
+
+status becomes accepted
+
+
+Provider Assigns Assistant:
+
+PATCH /requests/<request_id>/assign-assistant/
+
+
+Header:
+
+Authorization: Bearer <provider_token>
+
+Body:
+
+{
+  "assistant_id": 5
+}
+
+
+Assistant Starts Work:
+
+PATCH /requests/<request_id>/start/
+
+Header:
+
+Authorization: Bearer <assistant_token>
+
+status becomes IN PROGRESS
+
+
+Assistant Completes Work:
+
+PATCH /requests/<request_id>/complete/
+
+
+Header:
+
+Authorization: Bearer <assistant_token>
+
+Staus becomes COMPLETED
+
+
+
+FPO → View Providers:
+
+GET /auth/providers/
+
+
+
+Provider → View Assistants:
+
+GET /auth/assistants/
+
+
+View Request Details:
+
+GET /requests/<request_id>/
+
+
+PENDING → ASSIGNED → ACCEPTED → IN_PROGRESS → COMPLETED

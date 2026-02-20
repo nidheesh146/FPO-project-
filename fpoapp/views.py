@@ -4,10 +4,9 @@ from django.shortcuts import render
 
 from rest_framework import viewsets,status
 from rest_framework.permissions import IsAuthenticated
-from .models import ServiceRequest
 from .serializers import ServiceRequestSerializer
 from rest_framework.response import Response
-from .models import ServiceRequest
+from fpoapp.models import ServiceRequest
 from .serializers import ServiceRequestSerializer
 from .permissions import IsFarmer, IsFPO, IsProvider,IsAssistant
 from rest_framework.decorators import action
